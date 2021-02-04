@@ -88,6 +88,16 @@ public class TriviaControllerTest {
         verify(service, times(1)).updateQuestion(any());
     }
 
+    @Test
+    public void testDeleteQuestion() throws Exception {
+
+        doNothing().when(service).deleteQuestion(anyInt());
+        mockMvc.perform(delete("/api/trivia/question/{id}","1"))
+                .andExpect(status().isNoContent());
+
+        verify(service, times(1)).deleteQuestion(anyInt());
+    }
+
     private List<Question> generateListofQuestions() {
 
         List<Question> questionList = new ArrayList<>();

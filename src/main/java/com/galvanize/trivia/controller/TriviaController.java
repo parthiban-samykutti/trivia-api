@@ -34,4 +34,10 @@ public class TriviaController {
     public void updateQuestion(@RequestBody Question question) {
         service.updateQuestion(question);
     }
+
+    @DeleteMapping("/api/trivia/question/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteQuestion(@PathVariable int id) {
+        service.deleteQuestion(id);
+    }
 }

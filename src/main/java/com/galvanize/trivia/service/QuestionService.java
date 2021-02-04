@@ -23,4 +23,7 @@ public class QuestionService {
 
     public void updateQuestion(Question question) {
     }
+
+    public void deleteQuestion(int id) {
+    }
 }
