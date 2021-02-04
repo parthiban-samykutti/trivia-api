@@ -1,7 +1,7 @@
 package com.galvanize.trivia.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.galvanize.trivia.entity.Question.Question;
+import com.galvanize.trivia.entity.Question;
 import com.galvanize.trivia.service.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

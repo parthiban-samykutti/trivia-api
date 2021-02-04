@@ -1,4 +1,4 @@
-package com.galvanize.trivia.entity.Question;
+package com.galvanize.trivia.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

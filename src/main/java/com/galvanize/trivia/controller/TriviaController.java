@@ -1,6 +1,6 @@
 package com.galvanize.trivia.controller;
 
-import com.galvanize.trivia.entity.Question.Question;
+import com.galvanize.trivia.entity.Question;
 import com.galvanize.trivia.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

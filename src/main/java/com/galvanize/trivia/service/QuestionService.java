@@ -1,6 +1,6 @@
 package com.galvanize.trivia.service;
 
-import com.galvanize.trivia.entity.Question.Question;
+import com.galvanize.trivia.entity.Question;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
