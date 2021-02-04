@@ -1,5 +1,6 @@
 package com.galvanize.trivia.controller;
 
+import com.galvanize.trivia.entity.Answer;
 import com.galvanize.trivia.entity.Question;
 import com.galvanize.trivia.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class TriviaController {
 
     @GetMapping("/api/trivia/question")
     public List<Question> getAllQuestion(){
+
         return service.getAllQuestions();
     }
 
@@ -39,5 +41,12 @@ public class TriviaController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuestion(@PathVariable int id) {
         service.deleteQuestion(id);
+    }
+
+    @PostMapping("/api/trivia/question/{id}/answer")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Answer addAnswer(@PathVariable("id") int questionId,  @RequestBody Answer answer) {
+        answer.setQuestionId(questionId);
+        return service.addAnswer(answer);
     }
 }

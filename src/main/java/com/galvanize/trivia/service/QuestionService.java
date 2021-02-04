@@ -1,5 +1,6 @@
 package com.galvanize.trivia.service;
 
+import com.galvanize.trivia.entity.Answer;
 import com.galvanize.trivia.entity.Question;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,9 @@ public class QuestionService {
     }
 
     public void deleteQuestion(int id) {
+    }
+
+    public Answer addAnswer(Answer answer) {
+        return null;
     }
 }

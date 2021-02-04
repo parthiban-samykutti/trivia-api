@@ -1,6 +1,7 @@
 package com.galvanize.trivia.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.galvanize.trivia.entity.Answer;
 import com.galvanize.trivia.entity.Question;
 import com.galvanize.trivia.service.QuestionService;
 import org.junit.jupiter.api.Test;
@@ -92,10 +93,27 @@ public class TriviaControllerTest {
     public void testDeleteQuestion() throws Exception {
 
         doNothing().when(service).deleteQuestion(anyInt());
-        mockMvc.perform(delete("/api/trivia/question/{id}","1"))
+        mockMvc.perform(delete("/api/trivia/question/{id}", "1"))
                 .andExpect(status().isNoContent());
 
         verify(service, times(1)).deleteQuestion(anyInt());
+    }
+
+    @Test
+    public void testAddAnswer() throws Exception {
+        Answer answer = Answer.builder().build();
+        Answer answerExpected = Answer.builder()
+                .id(1)
+                .questionId(1)
+                .build();
+        when(service.addAnswer(any())).thenReturn(answerExpected);
+        mockMvc.perform(post("/api/trivia/question/{id}/answer", 1)
+                .content(mapper.writeValueAsString(answer))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.questionId").value(1));
+        verify(service, times(1)).addAnswer(any());
     }
 
     private List<Question> generateListofQuestions() {
