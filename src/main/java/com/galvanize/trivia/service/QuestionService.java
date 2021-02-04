@@ -20,4 +20,7 @@ public class QuestionService {
     public Question getQuestionById(int id) {
         return null;
     }
+
+    public void updateQuestion(Question question) {
+    }
 }

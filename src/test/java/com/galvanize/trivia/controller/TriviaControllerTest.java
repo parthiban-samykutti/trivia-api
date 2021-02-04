@@ -15,8 +15,7 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -71,6 +70,22 @@ public class TriviaControllerTest {
                 .andExpect(jsonPath("$.name").value(expectedQuestion.getName()));
 
         verify(service, times(1)).getQuestionById(anyInt());
+    }
+
+    @Test
+    public void testUpdateQuestion() throws Exception {
+        Question question = Question.builder()
+                .name("What did Yankee Doodle stick in his cap?")
+                .id(1)
+                .build();
+
+        doNothing().when(service).updateQuestion(any());
+        mockMvc.perform(put("/api/trivia/question")
+                .content(mapper.writeValueAsString(question))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+
+        verify(service, times(1)).updateQuestion(any());
     }
 
     private List<Question> generateListofQuestions() {

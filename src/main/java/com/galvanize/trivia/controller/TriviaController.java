@@ -28,4 +28,10 @@ public class TriviaController {
     public Question getQuestionById(@PathVariable int id){
         return service.getQuestionById(id);
     }
+
+    @PutMapping("/api/trivia/question")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateQuestion(@RequestBody Question question) {
+        service.updateQuestion(question);
+    }
 }
