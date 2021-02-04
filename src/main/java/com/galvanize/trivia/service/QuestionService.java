@@ -31,4 +31,8 @@ public class QuestionService {
     public Answer addAnswer(Answer answer) {
         return null;
     }
+
+    public List<Answer> getAnswerByQuestionId(int questionId) {
+        return null;
+    }
 }

@@ -49,4 +49,10 @@ public class TriviaController {
         answer.setQuestionId(questionId);
         return service.addAnswer(answer);
     }
+
+    @GetMapping("/api/trivia/question/{id}/answer")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Answer> getAnswerByQuestionId(@PathVariable("id") int questionId){
+        return service.getAnswerByQuestionId(questionId);
+    }
 }

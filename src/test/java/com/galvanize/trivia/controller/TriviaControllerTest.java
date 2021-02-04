@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -116,6 +117,33 @@ public class TriviaControllerTest {
         verify(service, times(1)).addAnswer(any());
     }
 
+    @Test
+    public void testGetAnswerByQuestionId() throws Exception {
+        List<Answer> answersList = new ArrayList<>();
+        answersList.add(Answer.builder()
+                .id(1)
+                .questionId(1)
+                .build());
+        answersList.add(Answer.builder()
+                .id(2)
+                .questionId(1)
+                .build());
+        answersList.add(Answer.builder()
+                .id(3)
+                .questionId(1)
+                .build());
+        when(service.getAnswerByQuestionId(anyInt())).thenReturn(answersList);
+
+        mockMvc.perform(get("/api/trivia/question/{id}/answer", 1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].id").exists())
+                .andExpect(jsonPath("$[0].questionId").value(1));
+        verify(service, times(1)).getAnswerByQuestionId(anyInt());
+    }
+
+
+
     private List<Question> generateListofQuestions() {
 
         List<Question> questionList = new ArrayList<>();
@@ -123,5 +151,7 @@ public class TriviaControllerTest {
         questionList.add(Question.builder().id(2).name("What word completes the phrase: “Everything but the kitchen”?").build());
         return questionList;
     }
+
+
 
 }
