@@ -10,9 +10,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,4 +47,25 @@ public class TriviaControllerTest {
                 .andExpect(jsonPath("$.name").value(questionExpected.getName()));
         verify(service, times(1)).addQuestion(any());
     }
+
+    @Test
+    public void testGetAllQuestions() throws Exception{
+
+        when(service.getAllQuestions()).thenReturn(generateListofQuestions());
+
+        mockMvc.perform(get("/api/trivia/question"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2));
+
+        verify(service, times(1)).getAllQuestions();
+    }
+
+    private List<Question> generateListofQuestions(){
+
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(Question.builder().id(1).name("What did Yankee Doodle stick in his cap?").build());
+        questionList.add(Question.builder().id(2).name("What word completes the phrase: “Everything but the kitchen”?").build());
+        return questionList;
+    }
+
 }

@@ -4,10 +4,9 @@ import com.galvanize.trivia.entity.Question.Question;
 import com.galvanize.trivia.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class TriviaController {
@@ -18,5 +17,11 @@ public class TriviaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Question addQuestion(@RequestBody Question question) {
         return service.addQuestion(question);
+    }
+
+
+    @GetMapping("/api/trivia/question")
+    public List<Question> getAllQuestion(){
+        return service.getAllQuestions();
     }
 }
