@@ -16,4 +16,8 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
         return null;
     }
+
+    public Question getQuestionById(int id) {
+        return null;
+    }
 }

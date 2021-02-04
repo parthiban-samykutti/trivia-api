@@ -19,9 +19,13 @@ public class TriviaController {
         return service.addQuestion(question);
     }
 
-
     @GetMapping("/api/trivia/question")
     public List<Question> getAllQuestion(){
         return service.getAllQuestions();
+    }
+
+    @GetMapping("/api/trivia/question/{id}")
+    public Question getQuestionById(@PathVariable int id){
+        return service.getQuestionById(id);
     }
 }
