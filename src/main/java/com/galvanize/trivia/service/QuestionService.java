@@ -35,4 +35,8 @@ public class QuestionService {
     public List<Answer> getAnswerByQuestionId(int questionId) {
         return null;
     }
+
+    public List<Question> generateQuestions() {
+        return null;
+    }
 }

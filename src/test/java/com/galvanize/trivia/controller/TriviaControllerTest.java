@@ -119,6 +119,44 @@ public class TriviaControllerTest {
 
     @Test
     public void testGetAnswerByQuestionId() throws Exception {
+        List<Answer> answersList = getAnswers();
+        when(service.getAnswerByQuestionId(anyInt())).thenReturn(answersList);
+
+        mockMvc.perform(get("/api/trivia/question/{id}/answer", 1))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].id").exists())
+                .andExpect(jsonPath("$[0].questionId").value(1));
+        verify(service, times(1)).getAnswerByQuestionId(anyInt());
+    }
+
+
+    @Test
+    public void testGenerateTrivia() throws  Exception{
+        List<Question> questionList = generateListofQuestions();
+        questionList.get(0).setAnswers(getAnswers());
+        questionList.get(1).setAnswers(getAnswers());
+
+        when(service.generateQuestions()).thenReturn(questionList);
+
+        mockMvc.perform(get("/api/trivia/quiz"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$", hasSize(2)))
+               .andExpect(jsonPath("$[0].answers",hasSize(3)));
+        verify(service,times(1)).generateQuestions();
+    }
+
+
+
+    private List<Question> generateListofQuestions() {
+
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(Question.builder().id(1).name("What did Yankee Doodle stick in his cap?").build());
+        questionList.add(Question.builder().id(2).name("What word completes the phrase: “Everything but the kitchen”?").build());
+        return questionList;
+    }
+
+    private List<Answer> getAnswers() {
         List<Answer> answersList = new ArrayList<>();
         answersList.add(Answer.builder()
                 .id(1)
@@ -132,26 +170,8 @@ public class TriviaControllerTest {
                 .id(3)
                 .questionId(1)
                 .build());
-        when(service.getAnswerByQuestionId(anyInt())).thenReturn(answersList);
-
-        mockMvc.perform(get("/api/trivia/question/{id}/answer", 1))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].id").exists())
-                .andExpect(jsonPath("$[0].questionId").value(1));
-        verify(service, times(1)).getAnswerByQuestionId(anyInt());
+        return answersList;
     }
-
-
-
-    private List<Question> generateListofQuestions() {
-
-        List<Question> questionList = new ArrayList<>();
-        questionList.add(Question.builder().id(1).name("What did Yankee Doodle stick in his cap?").build());
-        questionList.add(Question.builder().id(2).name("What word completes the phrase: “Everything but the kitchen”?").build());
-        return questionList;
-    }
-
 
 
 }
