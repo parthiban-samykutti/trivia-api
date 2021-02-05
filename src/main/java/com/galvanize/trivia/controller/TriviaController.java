@@ -2,7 +2,7 @@ package com.galvanize.trivia.controller;
 
 import com.galvanize.trivia.entity.Answer;
 import com.galvanize.trivia.entity.Question;
-import com.galvanize.trivia.service.QuestionService;
+import com.galvanize.trivia.service.TriviaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class TriviaController {
     @Autowired
-    private QuestionService service;
+    private TriviaService service;
 
     @PostMapping("/api/trivia/question")
     @ResponseStatus(HttpStatus.CREATED)

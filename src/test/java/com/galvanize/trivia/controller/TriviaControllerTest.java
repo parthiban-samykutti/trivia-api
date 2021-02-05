@@ -3,7 +3,7 @@ package com.galvanize.trivia.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.trivia.entity.Answer;
 import com.galvanize.trivia.entity.Question;
-import com.galvanize.trivia.service.QuestionService;
+import com.galvanize.trivia.service.TriviaService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,7 +28,7 @@ public class TriviaControllerTest {
     @Autowired
     private ObjectMapper mapper;
     @MockBean
-    private QuestionService service;
+    private TriviaService service;
 
     @Test
     public void testAddQuestion() throws Exception {
